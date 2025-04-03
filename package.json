@@ -1,0 +1,136 @@
+{
+    "name": "LangBiTeAugmentationDSL",
+    "description": "LangBiTeAugmentationDSL is a domain-specific language plug-in to assist in generating bias testing prompt templates.",
+    "version": "0.0.1",
+    "files": [
+        "bin",
+        "out",
+        "src"
+    ],
+    "publisher": "SOMResearchGroup",
+    "author": {
+        "name": "Sergio Morales"
+    },
+    "homepage": "https://github.com/SOM-Research/LangBiTeAugmentationDSL",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SOM-Research/LangBiTeAugmentationDSL"
+    },
+    "keywords": [
+        "Generative AI",
+        "Requirements",
+        "Ethics",
+        "Bias",
+        "Testing",
+        "LLM",
+        "DSL"
+    ],
+    "license": "GPLv3",
+    "type": "module",
+    "scripts": {
+        "build": "tsc -b tsconfig.json && node esbuild.mjs",
+        "watch": "concurrently -n tsc,esbuild -c blue,yellow \"tsc -b tsconfig.json --watch\" \"node esbuild.mjs --watch\"",
+        "lint": "eslint src --ext ts",
+        "langium:generate": "langium generate",
+        "langium:watch": "langium generate --watch",
+        "vscode:prepublish": "npm run build && npm run lint"
+    },
+    "dependencies": {
+        "chalk": "~5.3.0",
+        "commander": "~10.0.0",
+        "langium": "~2.0.0",
+        "vscode-languageclient": "~8.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "~16.18.11",
+        "@types/vscode": "~1.67.0",
+        "@typescript-eslint/eslint-plugin": "~5.58.0",
+        "@typescript-eslint/parser": "~5.58.0",
+        "concurrently": "^7.6.0",
+        "esbuild": "^0.18.14",
+        "eslint": "~8.33.0",
+        "langium-cli": "~2.0.0",
+        "typescript": "~5.0.4"
+    },
+    "displayName": "LangBiTeAugmentationDSL",
+    "engines": {
+        "vscode": "^1.67.0",
+        "node": ">=16.0.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "langbite-augmentation-dsl",
+                "aliases": [
+                    "LangBiTeAugmentationDSL",
+                    "langbite-augmentation-dsl"
+                ],
+                "extensions": [
+                    ".augml",
+                    ".aug"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "langbite-augmentation-dsl",
+                "scopeName": "source.langbite-augmentation-dsl",
+                "path": "./syntaxes/langbite-augmentation-dsl.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "langbite-augmentation-dsl.generateJson",
+                "title": "Generate JSON",
+                "shortTitle": "Generate JSON",
+                "category": "LangBiTeAugmentationDSL",
+                "icon": {
+                    "light": "icons/json.png",
+                    "dark": "icons/json.png"
+                }
+            },
+            {
+                "command": "langbite-augmentation-dsl.saveJsonDocument",
+                "title": "Save JSON",
+                "shortTitle": "Save JSON",
+                "category": "LangBiTeAugmentationDSL",
+                "icon": {
+                    "light": "icons/download.png",
+                    "dark": "icons/download.png"
+                }
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceLangId == langbite-augmentation-dsl",
+                    "command": "langbite-augmentation-dsl.generateJson",
+                    "group": "navigation"
+                },
+                {
+                    "when": "liveJSONPreviewer",
+                    "command": "langbite-augmentation-dsl.saveJsonDocument",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "iconThemes": [
+            {
+                "id": "langbiteaugmentationdsl",
+                "label": "LangBiTe Augmentation DSL",
+                "path": "./icons/langbite-augmentation-dsl.icon-theme.json"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:langbite-augmentation-dsl"
+    ],
+    "main": "./out/extension/main.cjs",
+    "bin": {
+        "ethics-ml-cli": "./bin/cli.js"
+    }
+}
