@@ -1,0 +1,12 @@
+{
+    "projectName": "LangBiTeAugmentationDSL",
+    "languages": [{
+        "id": "langbite-augmentation-dsl",
+        "grammar": "src/language/langbite-augmentation-dsl.langium",
+        "fileExtensions": [".augml", ".aug"],
+        "textMate": {
+            "out": "syntaxes/langbite-augmentation-dsl.tmLanguage.json"
+        }
+    }],
+    "out": "src/language/generated"
+}
